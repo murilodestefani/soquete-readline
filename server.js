@@ -11,19 +11,21 @@ const rl = readline.createInterface({
 const server = net.createServer((socket) => {
   console.log('Cliente conectado:', socket.remoteAddress);
 
-  rl.question('Digite a mensagem para o cliente: ', (message) => {
+  rl.question('Digite a mensagem para enviar ao cliente: ', (message) => {
     socket.write(message);
+  });
+
+  rl.on('line', (input) => {
+    if (input.toLowerCase() === 'exit') {
+      socket.end();
+      server.close();
+    } else {
+      socket.write(input);
+    }
   });
 
   socket.on('data', (data) => {
     console.log('\nMensagem do cliente:', data.toString());
-
-    rl.question(
-      'Digite a próxima mensagem para enviar ao cliente: ',
-      (message) => {
-        socket.write(message);
-      }
-    );
   });
 
   socket.on('end', () => {

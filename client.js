@@ -20,21 +20,18 @@ client.on('connect', () => {
   rl.question('Digite a mensagem para enviar ao servidor: ', (message) => {
     client.write(message);
   });
+
+  rl.on('line', (input) => {
+    if (input.toLowerCase() === 'exit') {
+      client.end();
+    } else {
+      client.write(input);
+    }
+  });
 });
 
 client.on('data', (data) => {
   console.log('\nMensagem do servidor:', data.toString());
-
-  rl.question(
-    'Digite a próxima mensagem para enviar ao servidor (ou digite "exit" para sair): ',
-    (message) => {
-      if (message.toLowerCase() === 'exit') {
-        client.end();
-      } else {
-        client.write(message);
-      }
-    }
-  );
 });
 
 client.on('error', (error) => {
