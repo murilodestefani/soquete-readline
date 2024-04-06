@@ -1,25 +1,40 @@
 const net = require('net');
+const readline = require('readline');
 
 const PORT = 12345;
 
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
+
 const server = net.createServer((socket) => {
-  console.log('Cliente conectado:', socket.remoteAddress);
+	console.log('Cliente conectado:', socket.remoteAddress);
 
-  socket.on('data', (data) => {
-    console.log('Mensagem do cliente:', data.toString());
+	rl.question('Digite a mensagem para o cliente: ', (message) => {
+		socket.write(message);
+	});
 
-    socket.write('Mensagem recebida pelo servidor: ' + data.toString());
-  });
+	socket.on('data', (data) => {
+		console.log('\nMensagem do cliente: ', data.toString());
 
-  socket.on('end', () => {
-    console.log('Cliente desconectado:', socket.remoteAddress);
-  });
+		rl.question(
+			'Dite a próxima mensagem para enviar ao cliente: ',
+			(menssage) => {
+				socket.write(menssage);
+			}
+		);
+	});
 
-  socket.on('error', (error) => {
-    console.error('Erro de conexão:', error);
-  });
+	socket.on('end', () => {
+		console.log('Cliente desconectado:', socket.remoteAddress);
+	});
+
+	socket.on('error', (error) => {
+		console.error('Erro de conexão:', error);
+	});
 });
 
 server.listen(PORT, () => {
-  console.log('Servidor escutando na porta', PORT);
+	console.log('Servidor escutando na porta', PORT);
 });
