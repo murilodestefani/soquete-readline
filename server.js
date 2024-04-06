@@ -4,37 +4,37 @@ const readline = require('readline');
 const PORT = 12345;
 
 const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
+  input: process.stdin,
+  output: process.stdout,
 });
 
 const server = net.createServer((socket) => {
-	console.log('Cliente conectado:', socket.remoteAddress);
+  console.log('Cliente conectado:', socket.remoteAddress);
 
-	rl.question('Digite a mensagem para o cliente: ', (message) => {
-		socket.write(message);
-	});
+  rl.question('Digite a mensagem para o cliente: ', (message) => {
+    socket.write(message);
+  });
 
-	socket.on('data', (data) => {
-		console.log('\nMensagem do cliente: ', data.toString());
+  socket.on('data', (data) => {
+    console.log('\nMensagem do cliente:', data.toString());
 
-		rl.question(
-			'Dite a próxima mensagem para enviar ao cliente: ',
-			(menssage) => {
-				socket.write(menssage);
-			}
-		);
-	});
+    rl.question(
+      'Digite a próxima mensagem para enviar ao cliente: ',
+      (message) => {
+        socket.write(message);
+      }
+    );
+  });
 
-	socket.on('end', () => {
-		console.log('Cliente desconectado:', socket.remoteAddress);
-	});
+  socket.on('end', () => {
+    console.log('Cliente desconectado:', socket.remoteAddress);
+  });
 
-	socket.on('error', (error) => {
-		console.error('Erro de conexão:', error);
-	});
+  socket.on('error', (error) => {
+    console.error('Erro de conexão:', error);
+  });
 });
 
 server.listen(PORT, () => {
-	console.log('Servidor escutando na porta', PORT);
+  console.log('Servidor escutando na porta', PORT);
 });
