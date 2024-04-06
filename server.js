@@ -3,7 +3,7 @@ const readline = require('readline');
 
 const PORT = 12345;
 
-const rl = readline.createInterface({
+const rlServer = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
@@ -11,16 +11,16 @@ const rl = readline.createInterface({
 const server = net.createServer((socket) => {
   console.log('Cliente conectado:', socket.remoteAddress);
 
-  rl.question('Digite a mensagem para enviar ao cliente: ', (message) => {
-    socket.write(message);
+  rlServer.question('Digite a mensagem para enviar ao cliente: ', (message) => {
+    socket.write(`Servidor: ${message}`);
   });
 
-  rl.on('line', (input) => {
+  rlServer.on('line', (input) => {
     if (input.toLowerCase() === 'exit') {
       socket.end();
       server.close();
     } else {
-      socket.write(input);
+      socket.write(`Servidor: ${input}`);
     }
   });
 

@@ -29,31 +29,37 @@ Certifique-se de ter o Node.js instalado em seu computador. Você pode baixá-lo
 
 3. **Execute o Servidor:**
 
-   Abra um terminal e execute o comando abaixo para deixar o `servidor` rodando em segundo plano:
+   Abra um terminal e execute o comando abaixo para deixar o `server` rodando em segundo plano:
 
    ```bash
-   node servidorReadline.js
+   node server.js
    ```
 
-   ![Servidor Screenshot](./screenshots/server.png)
+   ![Server Screenshot](./screenshots/server.png)
 
 4. **Execute o Client:**
 
-   Abra um outro terminal e execute o comando abaixo para rodar o `client` que será o responsável por enviar mensagens ao `servidor`:
+   Abra um outro terminal e execute o comando abaixo para rodar o `client` que será o responsável por enviar mensagens ao `server`:
 
    ```bash
    node client.js
    ```
 
-   ![Cliente Screenshot](./screenshots/client.png)
+   ![Client Screenshot](./screenshots/client.png)
 
-5. **Enviando Mensagem:**
+5. **Enviando Mensagem pelo Client:**
 
    No terminal do `client` digite uma mensagem e tecle enter assim como a imagem de exemplo abaixo:
    ![Client Mensagem Screenshot](./screenshots/msgClient.png)
-   Se a mensagem for enviada e recebida com sucesso pelo servidor o prompt irá pedir uma nova mensagem, mas se você desejar encerrar a comunicação digite a palavra `exit` e tecle enter.
 
 6. **Resposta do Servidor**
 
-   No terminal do `servidor` se a mensagem enviada pelo cliente for recebida com sucesso aparecerá o conteúdo da mensagem enviada pelo `cliente`:
-   ![Servidor Resposta Screenshot](./screenshots/responseServer.png)
+   No terminal do `server` se a mensagem enviada pelo cliente for recebida com sucesso aparecerá o conteúdo da mensagem enviada pelo `client`:
+   ![Server Resposta Screenshot](./screenshots/responseServer.png)
+
+7. **Enviando Mensagem pelo Server**
+
+   No terminal do `server` também é possivel enviar mensagem ao `client`, digite a mensagem e tecle enter. Veja um exemplo abaixo do envio e da resposta pelo `client`.
+
+   ![Server Client Screenshot](./screenshots/server-client.png)
+   ![Client Server Screenshot](./screenshots/client-server.png)
