@@ -17,21 +17,17 @@ const rl = readline.createInterface({
 client.on('connect', () => {
   console.log('Conectado ao servidor');
 
-  rl.question('Digite a mensagem para enviar ao servidor: ', (message) => {
-    client.write(message);
-  });
-
   rl.on('line', (input) => {
     if (input.toLowerCase() === 'exit') {
       client.end();
     } else {
-      client.write(input);
+      client.write(`Cliente: ${input}`);
     }
   });
 });
 
 client.on('data', (data) => {
-  console.log('\nMensagem do servidor:', data.toString());
+  console.log(data.toString());
 });
 
 client.on('error', (error) => {

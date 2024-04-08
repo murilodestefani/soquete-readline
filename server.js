@@ -11,10 +11,6 @@ const rlServer = readline.createInterface({
 const server = net.createServer((socket) => {
   console.log('Cliente conectado:', socket.remoteAddress);
 
-  rlServer.question('Digite a mensagem para enviar ao cliente: ', (message) => {
-    socket.write(`Servidor: ${message}`);
-  });
-
   rlServer.on('line', (input) => {
     if (input.toLowerCase() === 'exit') {
       socket.end();
@@ -25,7 +21,7 @@ const server = net.createServer((socket) => {
   });
 
   socket.on('data', (data) => {
-    console.log('\nMensagem do cliente:', data.toString());
+    console.log(data.toString());
   });
 
   socket.on('end', () => {
