@@ -8,8 +8,17 @@ const rlServer = readline.createInterface({
   output: process.stdout,
 });
 
+const connectdClients = [];
+
+function sendMessage(message) {
+  connectdClients.forEach((client) => {
+    client.write(message);
+  });
+}
+
 const server = net.createServer((socket) => {
-  console.log('Cliente conectado:', socket.remoteAddress);
+  console.log('Cliente conectado:', socket.remoteAddress.toString('utf8'));
+  connectdClients.push(socket);
 
   rlServer.on('line', (input) => {
     if (input.toLowerCase() === 'exit') {
@@ -22,6 +31,7 @@ const server = net.createServer((socket) => {
 
   socket.on('data', (data) => {
     console.log(data.toString());
+    sendMessage(data.toString());
   });
 
   socket.on('end', () => {
